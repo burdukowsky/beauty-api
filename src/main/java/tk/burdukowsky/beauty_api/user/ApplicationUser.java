@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,7 +29,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender = Gender.UNKNOWN;
 
-    public User() {
+    public ApplicationUser() {
     }
 
     public long getId() {
