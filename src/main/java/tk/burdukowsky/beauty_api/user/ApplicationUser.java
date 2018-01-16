@@ -1,5 +1,8 @@
 package tk.burdukowsky.beauty_api.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -14,6 +17,7 @@ public class ApplicationUser {
     @NotNull
     private String email;
 
+    @JsonIgnore
     @NotNull
     private String password;
 
@@ -26,8 +30,9 @@ public class ApplicationUser {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dateBirth;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private Gender gender = Gender.UNKNOWN;
+    private Gender gender;
 
     public ApplicationUser() {
     }
@@ -48,10 +53,12 @@ public class ApplicationUser {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -94,5 +101,19 @@ public class ApplicationUser {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationUser{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateBirth=" + dateBirth +
+                ", gender=" + gender +
+                '}';
     }
 }
