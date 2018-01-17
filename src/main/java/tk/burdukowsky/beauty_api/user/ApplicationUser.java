@@ -2,19 +2,29 @@ package tk.burdukowsky.beauty_api.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@GenericGenerator(
+        name = "usersSequenceGenerator",
+        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+        parameters = {@Parameter(name = "initial_value", value = "10")}
+)
 public class ApplicationUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "usersSequenceGenerator")
     private long id;
 
     @NotNull
+    @Column(unique = true)
     private String email;
 
     @JsonIgnore
@@ -33,6 +43,13 @@ public class ApplicationUser {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_name", referencedColumnName = "name"))
+    private Set<Role> roles = new HashSet<>();
 
     public ApplicationUser() {
     }
@@ -101,6 +118,16 @@ public class ApplicationUser {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @JsonIgnore
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    @JsonProperty
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

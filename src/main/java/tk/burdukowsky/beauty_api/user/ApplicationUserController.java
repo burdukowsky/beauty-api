@@ -55,6 +55,8 @@ public class ApplicationUserController {
         if (user.getPassword() != null)
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         ApplicationUser storedUser = applicationUserRepository.findOne(id);
+        if (storedUser == null)
+            return ResponseEntity.badRequest().build();
         applicationUserRepository.save(ApplicationUtils.merge(user, storedUser, ApplicationUser.class));
         return ResponseEntity.ok().build();
     }
