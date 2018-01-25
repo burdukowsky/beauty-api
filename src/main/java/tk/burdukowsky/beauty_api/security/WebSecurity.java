@@ -16,6 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -27,6 +28,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers(
+                        "/v2/api-docs/**",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
                 .antMatchers("/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
