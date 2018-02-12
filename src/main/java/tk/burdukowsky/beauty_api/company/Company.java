@@ -1,5 +1,6 @@
 package tk.burdukowsky.beauty_api.company;
 
+import org.hibernate.annotations.GenericGenerator;
 import tk.burdukowsky.beauty_api.user.ApplicationUser;
 
 import javax.persistence.*;
@@ -7,9 +8,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "companies")
+@GenericGenerator(
+        name = "usersSequenceGenerator",
+        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+        parameters = {@org.hibernate.annotations.Parameter(name = "initial_value", value = "10")}
+)
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "usersSequenceGenerator")
     private long id;
 
     @NotNull
