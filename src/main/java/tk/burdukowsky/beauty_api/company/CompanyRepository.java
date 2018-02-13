@@ -10,6 +10,8 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.util.List;
+
 @PreAuthorize("isAuthenticated()")
 @RepositoryRestResource(collectionResourceRel = "companies", path = "companies")
 public interface CompanyRepository extends PagingAndSortingRepository<Company, Long> {
@@ -69,4 +71,7 @@ public interface CompanyRepository extends PagingAndSortingRepository<Company, L
     @PreAuthorize("hasRole('ADMIN') or @securityService.isCompanyOwner(authentication, #company)")
     @Override
     void delete(@Param("company") Company company);
+
+    @PreAuthorize("hasRole('ADMIN') or @securityService.isUserIdEquals(authentication, #id)")
+    List<Company> findAllByOwner_Id(@Param("id") long ownerId);
 }

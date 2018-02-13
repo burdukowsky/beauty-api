@@ -21,4 +21,9 @@ public class SecurityService {
         ApplicationUser user = applicationUserRepository.findByEmail((String) authentication.getPrincipal());
         return user.getId() == company.getOwner().getId();
     }
+
+    public boolean isUserIdEquals(Authentication authentication, long userId) {
+        ApplicationUser user = applicationUserRepository.findByEmail((String) authentication.getPrincipal());
+        return user.getId() == userId;
+    }
 }
