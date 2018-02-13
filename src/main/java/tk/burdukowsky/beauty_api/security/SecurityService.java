@@ -16,6 +16,8 @@ public class SecurityService {
     }
 
     public boolean isCompanyOwner(Authentication authentication, Company company) {
+        if (company == null)
+            return true;
         ApplicationUser user = applicationUserRepository.findByEmail((String) authentication.getPrincipal());
         return user.getId() == company.getOwner().getId();
     }
