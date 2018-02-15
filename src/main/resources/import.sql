@@ -1,5 +1,6 @@
 INSERT INTO roles (name) VALUES ('ADMIN'), ('MEMBER');
 INSERT INTO users (id, email, password, first_name, middle_name, last_name, date_birth, gender) VALUES (1, 'burdukowskystas@gmail.com', '$2a$10$tYp8Q3ujZXSpM.d6xy6jaueLy/XSFVLaj6ms16xU2wnQ24UfT1dBe', 'Станислав', 'Олегович', 'Бурдуковский', '1995-04-02', 'MALE'), (2, 'member@example.com', '$2a$10$tYp8Q3ujZXSpM.d6xy6jaueLy/XSFVLaj6ms16xU2wnQ24UfT1dBe', 'Jane', null, 'Doe', '1995-04-02', 'FEMALE'), (3, 'hero@example.com', '$2a$10$tYp8Q3ujZXSpM.d6xy6jaueLy/XSFVLaj6ms16xU2wnQ24UfT1dBe', 'John', null, 'Doe', '1995-04-02', 'UNKNOWN');
 INSERT INTO users_roles (user_id, role_name) VALUES (1, 'ADMIN'), (2, 'MEMBER'), (3, 'ADMIN'), (3, 'MEMBER');
-INSERT INTO companies (id, name, description, owner_id) VALUES (1, 'Станислав Company', 'Test Desc', 1);
-INSERT INTO companies (id, name, description, owner_id) VALUES (2, 'Jane Company', 'Test Desc', 2);
+INSERT INTO companies (id, name, description, owner_id) VALUES (1, 'Станислав Company', 'Test Desc', 1), (2, 'Jane Company', 'Test Desc', 2);
+INSERT INTO categories (id, name, description) VALUES (1, 'Парикмахерские услуги', 'Парикмахерские услуги'), (2, 'Педикюр', 'Педикюр');
+INSERT INTO services (id, name, description, category_id) VALUES (1, 'Био-выпрямление волос', 'Био-выпрямление волос', 1), (2, 'Био-завивка волос', 'Био-завивка волос', 1), (3, 'Аппаратный педикюр', 'Аппаратный педикюр', 2), (4, 'Гелиевый педикюр', 'Гелиевый педикюр', 2);
