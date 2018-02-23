@@ -3,6 +3,10 @@ package tk.burdukowsky.beauty_api.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+import tk.burdukowsky.beauty_api.category.Category;
+import tk.burdukowsky.beauty_api.company.Company;
+import tk.burdukowsky.beauty_api.service.Service;
+import tk.burdukowsky.beauty_api.user.ApplicationUser;
 
 @Configuration
 public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter {
@@ -12,5 +16,10 @@ public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter {
         config.setPageParamName("page")
                 .setLimitParamName("limit")
                 .setSortParamName("sort");
+
+        config.exposeIdsFor(Category.class);
+        config.exposeIdsFor(Company.class);
+        config.exposeIdsFor(Service.class);
+        config.exposeIdsFor(ApplicationUser.class);
     }
 }
