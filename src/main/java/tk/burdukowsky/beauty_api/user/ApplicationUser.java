@@ -2,8 +2,6 @@ package tk.burdukowsky.beauty_api.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import tk.burdukowsky.beauty_api.company.Company;
 
 import javax.persistence.*;
@@ -15,14 +13,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@GenericGenerator(
-        name = "usersSequenceGenerator",
-        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-        parameters = {@Parameter(name = "initial_value", value = "10")}
-)
 public class ApplicationUser {
     @Id
-    @GeneratedValue(generator = "usersSequenceGenerator")
+    @SequenceGenerator(name = "users_sequence", sequenceName = "users_sequence", allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
     private long id;
 
     @NotNull

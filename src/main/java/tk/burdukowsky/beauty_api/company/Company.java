@@ -1,6 +1,5 @@
 package tk.burdukowsky.beauty_api.company;
 
-import org.hibernate.annotations.GenericGenerator;
 import tk.burdukowsky.beauty_api.service.Service;
 import tk.burdukowsky.beauty_api.user.ApplicationUser;
 
@@ -10,14 +9,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "companies")
-@GenericGenerator(
-        name = "companiesSequenceGenerator",
-        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-        parameters = {@org.hibernate.annotations.Parameter(name = "initial_value", value = "10")}
-)
 public class Company {
     @Id
-    @GeneratedValue(generator = "companiesSequenceGenerator")
+    @SequenceGenerator(name = "companies_sequence", sequenceName = "companies_sequence", allocationSize = 5)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "companies_sequence")
     private long id;
 
     @NotNull
