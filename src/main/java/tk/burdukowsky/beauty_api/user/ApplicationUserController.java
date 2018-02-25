@@ -34,22 +34,23 @@ public class ApplicationUserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Void> saveUser(@Valid @RequestBody ApplicationUser user) {
+    public ResponseEntity<ApplicationUser> saveUser(@Valid @RequestBody ApplicationUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        applicationUserRepository.save(user);
-        return ResponseEntity.ok().build();
+        ApplicationUser savedUser = applicationUserRepository.save(user);
+        return ResponseEntity.ok().body(savedUser);
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<Void> replaceUser(@Valid @RequestBody ApplicationUser user, @PathVariable("id") long id) {
+    public ResponseEntity<ApplicationUser> replaceUser(@Valid @RequestBody ApplicationUser user,
+                                                       @PathVariable("id") long id) {
         user.setId(id);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        applicationUserRepository.save(user);
-        return ResponseEntity.ok().build();
+        ApplicationUser replacedUser = applicationUserRepository.save(user);
+        return ResponseEntity.ok().body(replacedUser);
     }
 
     @PatchMapping("/users/{id}")
-    public ResponseEntity<Void> updateUser(@RequestBody ApplicationUser user, @PathVariable("id") long id)
+    public ResponseEntity<ApplicationUser> updateUser(@RequestBody ApplicationUser user, @PathVariable("id") long id)
             throws Exception {
         user.setId(id);
         if (user.getPassword() != null)
@@ -57,7 +58,8 @@ public class ApplicationUserController {
         ApplicationUser storedUser = applicationUserRepository.findOne(id);
         if (storedUser == null)
             return ResponseEntity.badRequest().build();
-        applicationUserRepository.save(ApplicationUtils.merge(user, storedUser, ApplicationUser.class));
-        return ResponseEntity.ok().build();
+        ApplicationUser updatedUser = applicationUserRepository
+                .save(ApplicationUtils.merge(user, storedUser, ApplicationUser.class));
+        return ResponseEntity.ok().body(updatedUser);
     }
 }

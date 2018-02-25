@@ -7,6 +7,7 @@ import tk.burdukowsky.beauty_api.category.Category;
 import tk.burdukowsky.beauty_api.company.Company;
 import tk.burdukowsky.beauty_api.service.Service;
 import tk.burdukowsky.beauty_api.user.ApplicationUser;
+import tk.burdukowsky.beauty_api.user.Role;
 
 @Configuration
 public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter {
@@ -21,5 +22,6 @@ public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter {
         config.exposeIdsFor(Company.class);
         config.exposeIdsFor(Service.class);
         config.exposeIdsFor(ApplicationUser.class);
+        config.exposeIdsFor(Role.class);
     }
 }

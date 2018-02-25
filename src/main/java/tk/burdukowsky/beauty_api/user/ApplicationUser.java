@@ -40,14 +40,14 @@ public class ApplicationUser {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_name", referencedColumnName = "name"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Company> companies;
 
     public ApplicationUser() {
@@ -119,20 +119,20 @@ public class ApplicationUser {
         this.gender = gender;
     }
 
-    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }
 
-    @JsonProperty
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
+    @JsonIgnore
     public List<Company> getCompanies() {
         return companies;
     }
 
+    @JsonProperty
     public void setCompanies(List<Company> companies) {
         this.companies = companies;
     }
