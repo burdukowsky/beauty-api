@@ -1,12 +1,13 @@
 package tk.burdukowsky.beauty_api.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import tk.burdukowsky.beauty_api.company.Company;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,8 +34,8 @@ public class ApplicationUser {
 
     private String lastName;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date dateBirth;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateBirth;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -103,11 +104,11 @@ public class ApplicationUser {
         this.lastName = lastName;
     }
 
-    public Date getDateBirth() {
+    public LocalDate getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(Date dateBirth) {
+    public void setDateBirth(LocalDate dateBirth) {
         this.dateBirth = dateBirth;
     }
 
