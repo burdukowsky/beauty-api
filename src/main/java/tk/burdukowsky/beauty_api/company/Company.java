@@ -21,7 +21,7 @@ public class Company {
     private String description;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     private ApplicationUser owner;
 
