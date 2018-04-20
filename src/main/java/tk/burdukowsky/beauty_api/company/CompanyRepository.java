@@ -54,6 +54,10 @@ public interface CompanyRepository extends PagingAndSortingRepository<Company, L
     @Override
     void deleteAll();
 
+    @PreAuthorize("hasRole('ADMIN') or @securityService.isUserIdEquals(authentication, #id)")
+    @RestResource(exported = false)
+    long countAllByOwner_Id(@Param("id") long ownerId);
+
     // неэкспортируемые методы КОНЕЦ
 
     @PreAuthorize("hasRole('ADMIN')")
