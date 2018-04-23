@@ -16,14 +16,21 @@ public class SecurityService {
     }
 
     public boolean isCompanyOwner(Authentication authentication, Company company) {
-        if (company == null)
+        if (company == null) {
             return true;
+        }
         ApplicationUser user = applicationUserRepository.findByEmail((String) authentication.getPrincipal());
+        if (user == null) {
+            return false;
+        }
         return user.getId() == company.getOwner().getId();
     }
 
     public boolean isUserIdEquals(Authentication authentication, long userId) {
         ApplicationUser user = applicationUserRepository.findByEmail((String) authentication.getPrincipal());
+        if (user == null) {
+            return false;
+        }
         return user.getId() == userId;
     }
 }
