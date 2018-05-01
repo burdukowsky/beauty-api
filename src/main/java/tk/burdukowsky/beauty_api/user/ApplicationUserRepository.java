@@ -11,5 +11,5 @@ public interface ApplicationUserRepository extends PagingAndSortingRepository<Ap
 
     ApplicationUser findByEmail(String email);
 
-    List<ApplicationUser> findAllByRolesName(@Param("role") RoleEnum roleEnum);
+    List<ApplicationUser> findAllByRolesNameOrderByFirstNameAscLastNameAsc(@Param("role") RoleEnum roleEnum);
 }

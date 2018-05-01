@@ -77,5 +77,5 @@ public interface CompanyRepository extends PagingAndSortingRepository<Company, L
     void delete(@Param("company") Company company);
 
     @PreAuthorize("hasRole('ADMIN') or @securityService.isUserIdEquals(authentication, #id)")
-    List<Company> findAllByOwner_Id(@Param("id") long ownerId);
+    List<Company> findAllByOwner_IdOrderByNameAsc(@Param("id") long ownerId);
 }
