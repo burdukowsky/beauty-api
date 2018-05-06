@@ -1,5 +1,7 @@
 package tk.burdukowsky.beauty_api.category;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import tk.burdukowsky.beauty_api.service.Service;
 
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "categories")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Category {
     @Id
     @SequenceGenerator(name = "categories_sequence", sequenceName = "categories_sequence", allocationSize = 15)
@@ -20,6 +23,7 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderBy("name")
     private List<Service> services;
 
     public Category() {
