@@ -25,7 +25,7 @@ public class Company {
     @JoinColumn(name = "owner_id")
     private ApplicationUser owner;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "companies_services",
             joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
