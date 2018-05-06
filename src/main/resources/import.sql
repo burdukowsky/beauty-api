@@ -296,3 +296,7 @@ INSERT INTO services (id, name, description, category_id) VALUES (247, 'Нуга
 INSERT INTO services (id, name, description, category_id) VALUES (248, 'Соляная пещера', 'Описание', 13);
 INSERT INTO services (id, name, description, category_id) VALUES (249, 'Пантовые ванны', 'Описание', 13);
 INSERT INTO services (id, name, description, category_id) VALUES (250, 'Аромафитокомплекс «Ароматика»', 'Описание', 13);
+INSERT INTO companies_services (company_id, service_id) VALUES (2, 1);
+INSERT INTO companies_services (company_id, service_id) VALUES (2, 2);
+INSERT INTO companies_services (company_id, service_id) VALUES (3, 3);
+INSERT INTO companies_services (company_id, service_id) VALUES (3, 4);
