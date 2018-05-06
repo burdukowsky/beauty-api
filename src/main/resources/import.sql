@@ -288,7 +288,7 @@ INSERT INTO services (id, name, description, category_id) VALUES (239, 'Лече
 INSERT INTO services (id, name, description, category_id) VALUES (240, 'Эстетическая стоматология', 'Описание', 12);
 INSERT INTO services (id, name, description, category_id) VALUES (241, 'Отбеливание зубов', 'Описание', 12);
 INSERT INTO services (id, name, description, category_id) VALUES (242, 'Лечение каналов', 'Описание', 12);
-INSERT INTO services (id, name, description, category_id) VALUES (243, 'Лечение рзоном', 'Описание', 12);
+INSERT INTO services (id, name, description, category_id) VALUES (243, 'Лечение озоном', 'Описание', 12);
 INSERT INTO services (id, name, description, category_id) VALUES (244, 'Отбеливание зубов ZOOM', 'Описание', 12);
 INSERT INTO services (id, name, description, category_id) VALUES (245, 'Лечение под наркозом', 'Описание', 12);
 INSERT INTO services (id, name, description, category_id) VALUES (246, 'Томография', 'Описание', 12);
