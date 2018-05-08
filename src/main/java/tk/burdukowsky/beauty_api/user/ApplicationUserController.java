@@ -52,12 +52,14 @@ public class ApplicationUserController {
     @PatchMapping("/users/{id}")
     public ResponseEntity<ApplicationUser> updateUser(@RequestBody ApplicationUser user, @PathVariable("id") long id)
             throws Exception {
-        user.setId(id);
-        if (user.getPassword() != null)
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         ApplicationUser storedUser = applicationUserRepository.findOne(id);
-        if (storedUser == null)
+        if (storedUser == null) {
             return ResponseEntity.badRequest().build();
+        }
+        user.setId(id);
+        if (user.getPassword() != null) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
         ApplicationUser updatedUser = applicationUserRepository
                 .save(ApplicationUtils.merge(user, storedUser, ApplicationUser.class));
         return ResponseEntity.ok().body(updatedUser);
