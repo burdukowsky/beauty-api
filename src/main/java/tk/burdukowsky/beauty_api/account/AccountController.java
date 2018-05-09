@@ -21,7 +21,6 @@ public class AccountController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public ResponseEntity<ApplicationUser> getAccount(Authentication authentication) {
         ApplicationUser currentUser = applicationUserRepository.findByEmail((String) authentication.getPrincipal());
