@@ -10,13 +10,29 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.9'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group = 'tk.burdukowsky'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
+querydsl {
+    jpa = true
+}
+
+idea {
+    module {
+        sourceDirs += file('src/querydsl/')
+        generatedSourceDirs += file('src/querydsl/')
+    }
+}
 
 repositories {
     mavenCentral()
@@ -31,6 +47,7 @@ dependencies {
     compile('io.jsonwebtoken:jjwt:0.9.0')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
+    compile("com.querydsl:querydsl-jpa:4.2.1")
     runtime('org.postgresql:postgresql')
     compile("io.springfox:springfox-swagger2:${swagger2Version}")
     compile("io.springfox:springfox-data-rest:${swagger2Version}")

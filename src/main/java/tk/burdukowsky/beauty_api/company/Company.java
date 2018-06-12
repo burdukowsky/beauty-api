@@ -21,6 +21,10 @@ public class Company {
     private String description;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    private CompanyType companyType;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     private ApplicationUser owner;
@@ -57,6 +61,14 @@ public class Company {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public CompanyType getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(CompanyType companyType) {
+        this.companyType = companyType;
     }
 
     public ApplicationUser getOwner() {
