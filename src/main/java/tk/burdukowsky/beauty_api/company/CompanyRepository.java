@@ -3,6 +3,7 @@ package tk.burdukowsky.beauty_api.company;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -80,4 +81,14 @@ public interface CompanyRepository
 
     @PreAuthorize("hasRole('ADMIN') or @securityService.isUserIdEquals(authentication, #id)")
     List<Company> findAllByOwner_IdOrderByNameAsc(@Param("id") long ownerId);
+
+    @Query(
+            value = "select c.* from companies c " +
+                    "where cast(string_to_array(:ids, ',') as bigint []) <@ array(select cs.service_id " +
+                    "from companies_services cs where cs.company_id = c.id) order by ?#{#pageable}",
+            countQuery = "select count(c.id) from companies c " +
+                    "where cast(string_to_array(:ids, ',') as bigint []) <@ array(select cs.service_id " +
+                    "from companies_services cs where cs.company_id = c.id)",
+            nativeQuery = true)
+    Page<Company> findAllByProvidableServices(@Param("ids") String ids, Pageable pageable);
 }
