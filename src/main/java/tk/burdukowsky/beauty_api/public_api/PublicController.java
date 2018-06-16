@@ -35,13 +35,13 @@ public class PublicController {
 
         appendSelectClauseToSelectCompanies(sbQuery);
 
-        appendWhereClauseToSelectCompaniesByServiceIdsSql(sbQuery, type);
+        appendWhereClauseToSelectCompaniesByServiceIdsSql(sbQuery, ids, type);
 
         appendOrderByAndLimitAndOffsetClauses(sbQuery, sort, sortDirection);
 
         Query query = entityManager.createNativeQuery(sbQuery.toString(), Company.class);
 
-        setIdsAndTypeParametersToQuery(query, ids, type);
+        setTypeParameterToQuery(query, type);
 
         setLimitAndOffsetParametersToQuery(query, page, limit);
 
@@ -52,11 +52,11 @@ public class PublicController {
 
         appendSelectClauseToSelectCompaniesCount(sbQueryTotal);
 
-        appendWhereClauseToSelectCompaniesByServiceIdsSql(sbQueryTotal, type);
+        appendWhereClauseToSelectCompaniesByServiceIdsSql(sbQueryTotal, ids, type);
 
         Query queryTotal = entityManager.createNativeQuery(sbQueryTotal.toString());
 
-        setIdsAndTypeParametersToQuery(queryTotal, ids, type);
+        setTypeParameterToQuery(queryTotal, type);
 
         long totalElements = ((BigInteger) queryTotal.getSingleResult()).longValue();
 
@@ -64,8 +64,10 @@ public class PublicController {
                 .body(new CustomPage<>(data, limit, totalElements, calculateTotalPages(totalElements, limit), page));
     }
 
-    private void appendWhereClauseToSelectCompaniesByServiceIdsSql(StringBuilder sb, CompanyType type) {
-        sb.append(" where cast(string_to_array(:ids, ',') as bigint []) <@ array(select cs.service_id ")
+    private void appendWhereClauseToSelectCompaniesByServiceIdsSql(StringBuilder sb, List<Long> ids, CompanyType type) {
+        sb.append(" where cast(array [ ")
+                .append(joinIdList(ids))
+                .append(" ] as bigint []) <@ array(select cs.service_id ")
                 .append(" from companies_services cs where cs.company_id = c.id) ");
 
         if (type != null) {
@@ -73,11 +75,7 @@ public class PublicController {
         }
     }
 
-    private void setIdsAndTypeParametersToQuery(Query query, List<Long> ids, CompanyType type) {
-        query.setParameter("ids", ids.stream()
-                .filter(Objects::nonNull)
-                .map(Object::toString).collect(Collectors.joining(",")));
-
+    private void setTypeParameterToQuery(Query query, CompanyType type) {
         if (type != null) {
             query.setParameter("companyType", type.name());
         }
@@ -95,13 +93,13 @@ public class PublicController {
 
         appendSelectClauseToSelectCompanies(sbQuery);
 
-        appendWhereClauseToSelectCompaniesByCategoryIdsSql(sbQuery, type);
+        appendWhereClauseToSelectCompaniesByCategoryIdsSql(sbQuery, ids, type);
 
         appendOrderByAndLimitAndOffsetClauses(sbQuery, sort, sortDirection);
 
         Query query = entityManager.createNativeQuery(sbQuery.toString(), Company.class);
 
-        setIdsAndTypeParametersToQuery(query, ids, type);
+        setTypeParameterToQuery(query, type);
 
         setLimitAndOffsetParametersToQuery(query, page, limit);
 
@@ -112,11 +110,11 @@ public class PublicController {
 
         appendSelectClauseToSelectCompaniesCount(sbQueryTotal);
 
-        appendWhereClauseToSelectCompaniesByCategoryIdsSql(sbQueryTotal, type);
+        appendWhereClauseToSelectCompaniesByCategoryIdsSql(sbQueryTotal, ids, type);
 
         Query queryTotal = entityManager.createNativeQuery(sbQueryTotal.toString());
 
-        setIdsAndTypeParametersToQuery(queryTotal, ids, type);
+        setTypeParameterToQuery(queryTotal, type);
 
         long totalElements = ((BigInteger) queryTotal.getSingleResult()).longValue();
 
@@ -124,8 +122,12 @@ public class PublicController {
                 .body(new CustomPage<>(data, limit, totalElements, calculateTotalPages(totalElements, limit), page));
     }
 
-    private void appendWhereClauseToSelectCompaniesByCategoryIdsSql(StringBuilder sb, CompanyType type) {
-        sb.append(" where cast(string_to_array(:ids, ',') as bigint []) <@ array(select distinct s.category_id ")
+    private void appendWhereClauseToSelectCompaniesByCategoryIdsSql(StringBuilder sb,
+                                                                    List<Long> ids,
+                                                                    CompanyType type) {
+        sb.append(" where cast(array [ ")
+                .append(joinIdList(ids))
+                .append(" ] as bigint []) <@ array(select distinct s.category_id ")
                 .append(" from companies_services cs left join services s on cs.service_id = s.id ")
                 .append(" where cs.company_id = c.id) ");
 
@@ -156,5 +158,9 @@ public class PublicController {
 
     private void appendSelectClauseToSelectCompaniesCount(StringBuilder sb) {
         sb.append(" select count(c.id) from companies c ");
+    }
+
+    private String joinIdList(List<Long> ids) {
+        return ids.stream().filter(Objects::nonNull).map(Object::toString).collect(Collectors.joining(","));
     }
 }
