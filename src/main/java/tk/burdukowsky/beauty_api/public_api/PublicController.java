@@ -31,18 +31,18 @@ public class PublicController {
             @RequestParam(required = false) CompanyType type,
             @RequestParam List<Long> ids) {
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sbQuery = new StringBuilder();
 
-        sb.append(" select c.* from companies c ");
+        sbQuery.append(" select c.* from companies c ");
 
-        appendWhereClause(sb, type);
+        appendWhereClause(sbQuery, type);
 
-        sb.append(" order by ")
+        sbQuery.append(" order by ")
                 .append(sort.toString())
                 .append(sortDirection.equalsIgnoreCase("desc") ? " desc " : " asc ")
                 .append(" limit :limit offset :offset ");
 
-        Query query = entityManager.createNativeQuery(sb.toString(), Company.class);
+        Query query = entityManager.createNativeQuery(sbQuery.toString(), Company.class);
 
         setParametersToQuery(query, ids, type);
 
@@ -52,13 +52,13 @@ public class PublicController {
         @SuppressWarnings("unchecked")
         List<Company> data = query.getResultList();
 
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sbQueryTotal = new StringBuilder();
 
-        sb2.append(" select count(c.id) from companies c ");
+        sbQueryTotal.append(" select count(c.id) from companies c ");
 
-        appendWhereClause(sb2, type);
+        appendWhereClause(sbQueryTotal, type);
 
-        Query queryTotal = entityManager.createNativeQuery(sb2.toString());
+        Query queryTotal = entityManager.createNativeQuery(sbQueryTotal.toString());
 
         setParametersToQuery(queryTotal, ids, type);
 
