@@ -1,5 +1,6 @@
 package tk.burdukowsky.beauty_api.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import tk.burdukowsky.beauty_api.service.Service;
 import tk.burdukowsky.beauty_api.user.ApplicationUser;
 
@@ -29,6 +30,7 @@ public class Company {
     @JoinColumn(name = "owner_id")
     private ApplicationUser owner;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "companies_services",
