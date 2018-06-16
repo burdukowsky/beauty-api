@@ -1,4 +1,4 @@
-package tk.burdukowsky.beauty_api.public_api;
+package tk.burdukowsky.beauty_api.company;
 
 import java.util.List;
 
