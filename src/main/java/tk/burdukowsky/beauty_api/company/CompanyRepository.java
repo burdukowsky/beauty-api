@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
-@PreAuthorize("isAuthenticated()")
 @RepositoryRestResource(collectionResourceRel = "companies", path = "companies")
 public interface CompanyRepository extends PagingAndSortingRepository<Company, Long> {
 

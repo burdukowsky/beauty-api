@@ -29,6 +29,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/swagger-ui.html",
                         "/webjars/**",
+                        "/categories/**",
+                        "/categories-with-services",
                         "/public/**").permitAll()
                 .antMatchers("/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()

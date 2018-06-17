@@ -7,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
-@PreAuthorize("isAuthenticated()")
 @RepositoryRestResource(collectionResourceRel = "services", path = "services")
 public interface ServiceRepository extends PagingAndSortingRepository<Service, Long> {
 
