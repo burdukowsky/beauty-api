@@ -1,6 +1,7 @@
 package tk.burdukowsky.beauty_api.company;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -99,28 +100,40 @@ public class CustomCompanyRepositoryImpl implements CustomCompanyRepository {
     }
 
     private void appendWhereClauseToSelectCompaniesByServiceIdsSql(StringBuilder sb, List<Long> ids, CompanyType type) {
-        sb.append(" where cast(array [ ")
-                .append(joinIdList(ids))
-                .append(" ] as bigint []) <@ array(select cs.service_id ")
-                .append(" from companies_services cs where cs.company_id = c.id) ");
+        sb.append(" where ");
+
+        if (!CollectionUtils.isEmpty(ids)) {
+            sb.append(" cast(array [ ")
+                    .append(joinIdList(ids))
+                    .append(" ] as bigint []) <@ array(select cs.service_id ")
+                    .append(" from companies_services cs where cs.company_id = c.id) and ");
+        }
 
         if (type != null) {
-            sb.append(" and c.company_type = :companyType ");
+            sb.append(" c.company_type = :companyType and ");
         }
+
+        sb.append(" true ");
     }
 
     private void appendWhereClauseToSelectCompaniesByCategoryIdsSql(StringBuilder sb,
                                                                     List<Long> ids,
                                                                     CompanyType type) {
-        sb.append(" where cast(array [ ")
-                .append(joinIdList(ids))
-                .append(" ] as bigint []) <@ array(select distinct s.category_id ")
-                .append(" from companies_services cs left join services s on cs.service_id = s.id ")
-                .append(" where cs.company_id = c.id) ");
+        sb.append(" where ");
+
+        if (!CollectionUtils.isEmpty(ids)) {
+            sb.append(" cast(array [ ")
+                    .append(joinIdList(ids))
+                    .append(" ] as bigint []) <@ array(select distinct s.category_id ")
+                    .append(" from companies_services cs left join services s on cs.service_id = s.id ")
+                    .append(" where cs.company_id = c.id) and ");
+        }
 
         if (type != null) {
-            sb.append(" and c.company_type = :companyType ");
+            sb.append(" c.company_type = :companyType and ");
         }
+
+        sb.append(" true ");
     }
 
     private String joinIdList(List<Long> ids) {
