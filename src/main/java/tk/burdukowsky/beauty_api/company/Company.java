@@ -1,6 +1,7 @@
 package tk.burdukowsky.beauty_api.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Range;
 import tk.burdukowsky.beauty_api.service.Service;
 import tk.burdukowsky.beauty_api.user.ApplicationUser;
@@ -30,6 +31,7 @@ public class Company {
 
     private String address;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Range(min = 1, max = 5)
     private Float rating;
 
