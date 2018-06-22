@@ -3,7 +3,8 @@ package tk.burdukowsky.beauty_api.company;
 public enum CompanySortField {
     id("id"),
     companyType("company_type"),
-    name("name");
+    name("name"),
+    rating("rating");
 
     private String strVal;
 
