@@ -1,6 +1,7 @@
 package tk.burdukowsky.beauty_api.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Range;
 import tk.burdukowsky.beauty_api.service.Service;
 import tk.burdukowsky.beauty_api.user.ApplicationUser;
 
@@ -20,6 +21,17 @@ public class Company {
     private String name;
 
     private String description;
+
+    private String timetable;
+
+    private String site;
+
+    private String phone;
+
+    private String address;
+
+    @Range(min = 1, max = 5)
+    private Float rating;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -63,6 +75,46 @@ public class Company {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(String timetable) {
+        this.timetable = timetable;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public CompanyType getCompanyType() {
