@@ -16,6 +16,7 @@ public class Service {
     @NotNull
     private String name;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     @NotNull

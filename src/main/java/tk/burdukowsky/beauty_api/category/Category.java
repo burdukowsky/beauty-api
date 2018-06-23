@@ -20,6 +20,7 @@ public class Category {
     @NotNull
     private String name;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
