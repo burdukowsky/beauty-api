@@ -143,8 +143,11 @@ public class CustomCompanyRepositoryImpl implements CustomCompanyRepository {
     private void appendOrderByAndLimitAndOffsetClauses(StringBuilder sb, CompanySortField sort, String sortDirection) {
         sb.append(" order by ")
                 .append(sort.toString())
-                .append(sortDirection.equalsIgnoreCase("desc") ? " desc " : " asc ")
-                .append(" limit :limit offset :offset ");
+                .append(sortDirection.equalsIgnoreCase("desc") ? " desc " : " asc ");
+        if (sort != CompanySortField.id) {
+            sb.append(" , id asc ");
+        }
+        sb.append(" limit :limit offset :offset ");
     }
 
     private void setTypeParameterToQuery(Query query, CompanyType type) {
