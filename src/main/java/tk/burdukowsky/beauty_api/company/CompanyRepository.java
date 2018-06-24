@@ -9,7 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,7 +72,6 @@ public interface CompanyRepository extends PagingAndSortingRepository<Company, L
     @Override
     Page<Company> findAll(Pageable pageable);
 
-    @PostAuthorize("hasRole('ADMIN') or @securityService.isCompanyOwner(authentication, returnObject)")
     @Override
     Company findOne(Long companyId);
 
