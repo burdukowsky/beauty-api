@@ -13,7 +13,7 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Category {
     @Id
-    @SequenceGenerator(name = "categories_sequence", sequenceName = "categories_sequence", allocationSize = 15)
+    @SequenceGenerator(name = "categories_sequence", sequenceName = "categories_sequence", allocationSize = 0)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categories_sequence")
     private long id;
 

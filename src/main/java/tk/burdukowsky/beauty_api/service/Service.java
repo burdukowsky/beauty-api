@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "services")
 public class Service {
     @Id
-    @SequenceGenerator(name = "services_sequence", sequenceName = "services_sequence", allocationSize = 255)
+    @SequenceGenerator(name = "services_sequence", sequenceName = "services_sequence", allocationSize = 0)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "services_sequence")
     private long id;
 
