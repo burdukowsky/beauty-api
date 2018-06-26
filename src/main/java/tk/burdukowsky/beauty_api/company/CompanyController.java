@@ -66,12 +66,6 @@ public class CompanyController {
         try {
             byte[] imageBytes = image.getBytes();
             Uploader uploader = cloudinary.uploader();
-            String originalImagePath = company.getImage();
-            if (originalImagePath != null) {
-                String originalPublicId = originalImagePath
-                        .substring(originalImagePath.lastIndexOf("/") + 1, originalImagePath.lastIndexOf("."));
-                uploader.destroy(originalPublicId, ObjectUtils.emptyMap());
-            }
             Map uploadResult = uploader.upload(imageBytes, ObjectUtils.asMap(
                     "transformation", new Transformation().crop("limit").width(400).height(400)));
             String version = String.valueOf(uploadResult.get("version"));
