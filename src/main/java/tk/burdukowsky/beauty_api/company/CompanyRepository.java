@@ -66,6 +66,13 @@ public interface CompanyRepository extends PagingAndSortingRepository<Company, L
     @Query("update Company c set c.rating = :rating where c.id = :companyId")
     int setRatingFor(@Param("rating") Float rating, @Param("companyId") long companyId);
 
+    @PreAuthorize("isAuthenticated()")
+    @RestResource(exported = false)
+    @Transactional
+    @Modifying
+    @Query("update Company c set c.image = :image where c.id = :companyId")
+    int setImageFor(@Param("image") String image, @Param("companyId") long companyId);
+
     // неэкспортируемые методы КОНЕЦ
 
     @PreAuthorize("hasRole('ADMIN')")

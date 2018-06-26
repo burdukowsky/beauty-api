@@ -24,3 +24,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### CloudinaryConfig ###
+/src/main/java/tk/burdukowsky/beauty_api/config/CloudinaryConfig.java

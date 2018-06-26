@@ -36,6 +36,9 @@ public class Company {
     @Range(min = 1, max = 5)
     private Float rating;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String image;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private CompanyType companyType;
@@ -118,6 +121,14 @@ public class Company {
 
     public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public CompanyType getCompanyType() {
