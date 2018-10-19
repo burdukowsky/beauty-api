@@ -11,8 +11,9 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
 group = 'tk.burdukowsky'
 version = '1.0.0'
@@ -20,6 +21,10 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+configurations {
+    providedRuntime
 }
 
 ext {
@@ -37,5 +42,6 @@ dependencies {
     compile("io.springfox:springfox-swagger-ui:${swagger2Version}")
     compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4')
     compile('com.cloudinary:cloudinary-http44:1.18.0')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
