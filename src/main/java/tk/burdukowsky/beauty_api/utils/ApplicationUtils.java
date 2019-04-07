@@ -17,7 +17,7 @@ public class ApplicationUtils {
      * @throws Exception если не удается создать новый экземпляр объекта
      */
     public static <T> T merge(T o1, T o2, Class<T> clazz) throws Exception {
-        T merged = clazz.newInstance();
+        T merged = clazz.getDeclaredConstructor().newInstance();
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
             field.set(merged, field.get(o1) != null ? field.get(o1) : field.get(o2));

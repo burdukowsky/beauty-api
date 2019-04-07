@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.9.RELEASE'
+        springBootVersion = '1.5.20.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -10,10 +10,12 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
+plugins {
+    id 'java'
+    id 'war'
+}
+
 apply plugin: 'org.springframework.boot'
-apply plugin: 'war'
 
 group = 'tk.burdukowsky'
 version = '1.0.0'
@@ -23,25 +25,23 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    providedRuntime
-}
-
 ext {
     swagger2Version = '2.8.0'
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('io.jsonwebtoken:jjwt:0.9.0')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-starter-data-rest')
-    runtime('org.postgresql:postgresql')
-    compile("io.springfox:springfox-swagger2:${swagger2Version}")
-    compile("io.springfox:springfox-data-rest:${swagger2Version}")
-    compile("io.springfox:springfox-swagger-ui:${swagger2Version}")
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4')
-    compile('com.cloudinary:cloudinary-http44:1.18.0')
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-data-rest'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'io.jsonwebtoken:jjwt:0.9.0'
+    runtime 'org.postgresql:postgresql'
+    compile "io.springfox:springfox-swagger2:${swagger2Version}"
+    compile "io.springfox:springfox-data-rest:${swagger2Version}"
+    compile "io.springfox:springfox-swagger-ui:${swagger2Version}"
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4'
+    compile 'com.cloudinary:cloudinary-http44:1.18.0'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.security:spring-security-test'
 }

@@ -1,6 +1,6 @@
+HELP.md
 .gradle
 /build/
-/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -10,20 +10,24 @@
 .project
 .settings
 .springBeans
+.sts4-cache
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+/out/
 
 ### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
 
 ### CloudinaryConfig ###
 /src/main/java/tk/burdukowsky/beauty_api/config/CloudinaryConfig.java
